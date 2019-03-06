@@ -1,0 +1,11 @@
+CREATE
+POST /users/{user-name}/todos/
+
+READ
+GET /users/{user-name}/todos/
+
+UPDATE
+PUT /users/{user-name}/todos/
+
+DELETE
+DELETE /users/{user-name}/todos/{id}

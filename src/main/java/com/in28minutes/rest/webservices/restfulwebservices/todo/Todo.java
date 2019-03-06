@@ -1,13 +1,14 @@
 package com.in28minutes.rest.webservices.restfulwebservices.todo;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Todo {
 
     private long id;
     private String username;
     private String description;
-    private Date targeDate;
+    private Date targetDate;
     private boolean done;
 
     public long getId() {
@@ -34,12 +35,12 @@ public class Todo {
         this.description = description;
     }
 
-    public Date getTargeDate() {
-        return targeDate;
+    public Date getTargetDate() {
+        return targetDate;
     }
 
-    public void setTargeDate(Date targeDate) {
-        this.targeDate = targeDate;
+    public void setTargetDate(Date targetDate) {
+        this.targetDate = targetDate;
     }
 
     public boolean isDone() {
@@ -54,7 +55,21 @@ public class Todo {
         this.id = id;
         this.username = username;
         this.description = description;
-        this.targeDate = targeDate;
+        this.targetDate = targeDate;
         this.done = done;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Todo todo = (Todo) o;
+        return id == todo.id;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
     }
 }
