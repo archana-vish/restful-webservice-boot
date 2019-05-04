@@ -42,5 +42,16 @@ public class TodoHardcodedService {
         return null;
     }
 
+    public Todo save(Todo todo) {
+        if (todo.getId() <= 0 ) {
+            // create a new id before save
+            todo.setId(++counter);
+        } else {
+            // delete an old todo and save as new
+            deleteById(todo.getId());
+        }
+        todos.add(todo);
+        return todo;
+    }
 
 }

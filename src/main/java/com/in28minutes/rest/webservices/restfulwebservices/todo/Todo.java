@@ -51,6 +51,11 @@ public class Todo {
         this.done = done;
     }
 
+    // To handle request body need a default constructor
+    protected Todo() {
+
+    }
+
     public Todo(long id, String username, String description, Date targeDate, boolean done) {
         this.id = id;
         this.username = username;
