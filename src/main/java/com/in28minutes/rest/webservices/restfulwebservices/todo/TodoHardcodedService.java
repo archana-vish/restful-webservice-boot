@@ -11,7 +11,7 @@ import java.util.ListIterator;
 public class TodoHardcodedService {
 
     private static List<Todo> todos = new ArrayList<>();
-    private static int counter = 1;
+    private static long counter = 1;
 
     static {
         todos.add(new Todo(counter++, "in28minutes", "Learn Angular 7", new Date(), false ));
