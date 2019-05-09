@@ -13,8 +13,6 @@ import java.util.List;
 @CrossOrigin(origins="http://localhost:4200")
 public class TodoJPAResourceController {
 
-    @Autowired
-    private TodoHardcodedService todoHardcodedService;
 
     @Autowired
     private TodoJPARepository todoJPARepository;
@@ -31,13 +29,9 @@ public class TodoJPAResourceController {
 
     @DeleteMapping("/jpa/users/{username}/todos/{id}")
     public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long id) {
-        Todo todo = todoHardcodedService.deleteById(id);
-        if (todo != null) {
-            return  ResponseEntity.noContent().build();
-        }
-        else {
-            return ResponseEntity.notFound().build();
-        }
+        //Todo todo = todoHardcodedService.deleteById(id);
+        todoJPARepository.deleteById(id);
+        return ResponseEntity.notFound().build();
     }
 
 //    UPDATE
@@ -45,7 +39,8 @@ public class TodoJPAResourceController {
     // For an update we have a request body with the details of the todo this is mappped by @RequestBody
     @PutMapping("/jpa/users/{username}/todos/{id}")
     public ResponseEntity<Todo> updateTodo(@PathVariable String username, @PathVariable long id, @RequestBody Todo todo) {
-        Todo todoUpdated = todoHardcodedService.save(todo);
+        todo.setUsername(username);
+        Todo todoUpdated = todoJPARepository.save(todo);
         return new ResponseEntity<>(todoUpdated, HttpStatus.OK);
     }
 
@@ -53,7 +48,8 @@ public class TodoJPAResourceController {
 //    POST /users/{user-name}/todos/
     @PostMapping("/jpa/users/{username}/todos")
     public ResponseEntity<Void> createTodo(@PathVariable String username, @RequestBody Todo todo) {
-        Todo createdTodo = todoHardcodedService.save(todo);
+        todo.setUsername(username);
+        Todo createdTodo = todoJPARepository.save(todo);
         // What is the url of the created resource??
         // Get current resource url  and then append the id of the newly created resource
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdTodo.getId()).toUri();
